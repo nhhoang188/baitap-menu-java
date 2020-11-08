@@ -8,17 +8,72 @@ public class MenuDisplay {
         int[] arr = inputArrays(n);
         listPrimeofArray(arr);
         CheckNofArray(arr);
+        SortArray(arr);
+        SortArray(addXtoArray(arr));
+        DeleteNofArray(arr);
+    }
+
+    public static int[] addXtoArray(int[] arr) {
+        Scanner input = new Scanner(System.in);
+        int x = input.nextInt();
+        int[] arrnew = new int[arr.length + 1];
+        for (int i = 0; i < arrnew.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                arrnew[i] = arr[j];
+            }
+        }
+        return arrnew;
+    }
+
+    public static void SortArray(int[] arr) {
+        int temp;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]) {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        System.out.println("Sap Xep Mang Tang Dan: ");
+        for (int i : arr) {
+            System.out.print(i + ",");
+        }
+    }
+
+    public static void DeleteNofArray(int[] arr) {
+        int n = arr.length;
+        boolean exit = true;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n) {
+                System.arraycopy(arr, i + 1, arr, i, arr.length - 1 - i);
+                arr[arr.length - 1] = 0;
+                exit = false;
+            }
+        }
+        if (exit) {
+            System.out.println("\nGia Tri " + n + "Khong co trong mang.");
+        } else {
+            System.out.println("Mang sau khi da xoa " + n + " ra la:");
+            for (int i : arr) {
+                System.out.print(i + ",");
+            }
+        }
     }
 
     public static void CheckNofArray(int[] arr) {
         int n = arr.length;
-        for (int i : arr) {
-            if (n != arr[i]) {
+        boolean exit = false;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n) {
                 System.out.println("\n" + arr[i] + " Co Ton Tai Trong Mang Va Nam o Vi Tri Thu " + i);
-            } else {
-                System.out.println("\n" + n + " khong co trong mang." + arr[i]);
+                exit = true;
+                break;
             }
-            break;
+        }
+        if (!exit) {
+            System.out.println("\n" + n + " khong co trong mang ");
         }
     }
 
